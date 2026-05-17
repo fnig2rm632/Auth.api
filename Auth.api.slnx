@@ -5,4 +5,5 @@
     <Project Path="src/Auth.Domain/Auth.Domain.csproj" />
     <Project Path="src/Auth.Infrastructure/Auth.Infrastructure.csproj" />
   </Folder>
+  <Project Path="test/Auth.UnitTests/Auth.UnitTests.csproj" />
 </Solution>
