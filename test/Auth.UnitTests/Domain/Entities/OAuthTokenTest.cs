@@ -1,3 +1,4 @@
+using System;
 using Auth.Domain.Common;
 using Auth.Domain.Entities;
 using Xunit;

@@ -1,3 +1,4 @@
+using System.Linq;
 using Auth.Domain.Common;
 using Auth.Domain.ValueObjects;
 using Xunit;

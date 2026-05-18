@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Auth.Domain.Common;
 using Auth.Domain.ValueObjects;
 using Xunit;
