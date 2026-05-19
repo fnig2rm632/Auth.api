@@ -134,6 +134,21 @@ public record Error(string Message, ErrorType ErrorType)
         public static Error MinCannotBeMoreMax => Validation("Min Length cannot be Be more than Max Length");
         public static Error RequireSimbolIsNullOrEmpty => Validation("Require simbol cannot be Null Or Empty");
     }
+    
+    public static class Redis
+    {
+        public static Error ConnectionFailed => Unavailable("Connection to redis failed");
+        public static Error TimeoutGateway => Timeout("Timeout connection to redis");
+        public static Error InternalServer => Internal("Internal Server Error");
+        public static Error OutOfMemory => Unavailable("Redis out of memory");
+    }
+    
+    public static class Database
+    {
+        public static Error ConnectionFailed => Unavailable("Connection to server failed");
+        public static Error TimeoutGateway => Timeout("Timeout connection to server");
+        public static Error InternalServer => Internal("Internal Server Error");
+    }
 }
 
 public enum ErrorType
