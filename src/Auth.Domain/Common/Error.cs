@@ -149,6 +149,19 @@ public record Error(string Message, ErrorType ErrorType)
         public static Error TimeoutGateway => Timeout("Timeout connection to server");
         public static Error InternalServer => Internal("Internal Server Error");
     }
+    
+    public static class PasswordHasher
+    {
+        public static Error PasswordHashCannotBeEmpty => Validation("Password Hash cannot be empty");
+        public static Error CannotConvertInHash => Validation("Cannot convert in hash");
+        public static Error CannotComparePasswordAndHash  => Validation("Cannot compare password and hash");
+    }
+    
+    public static class TokenProvider
+    {
+        public static Error InvalidToken => Validation("Invalid token");
+        public static Error ExpiredToken => Validation("Token expired");
+    }
 }
 
 public enum ErrorType
