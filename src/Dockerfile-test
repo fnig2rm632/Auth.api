@@ -1,0 +1,30 @@
+﻿ARG BUILD_VERSION=1.0.0
+ARG ASPNETCORE_ENVIRONMENT=Development
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG ASPNETCORE_ENVIRONMENT
+WORKDIR /src
+EXPOSE 7070
+
+COPY ["src/Auth.API/Auth.API.csproj", "Auth.API/"]
+COPY ["src/Auth.Domain/Auth.Domain.csproj", "Auth.Domain/"]
+COPY ["src/Auth.Infrastructure/Auth.Infrastructure.csproj", "Auth.Infrastructure/"]
+COPY ["src/Auth.Application/Auth.Application.csproj", "Auth.Application/"]
+RUN dotnet restore "Auth.API/Auth.API.csproj"
+COPY src .
+
+LABEL org.label-schema.version=$BUILD_VERSION
+LABEL org.label-schema.name="Auth API"
+
+WORKDIR "/src/Auth.API"
+RUN dotnet build "Auth.API.csproj" -c Debug -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Auth.API.csproj" -c Debug -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+ARG ASPNETCORE_ENVIRONMENT
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
+ENTRYPOINT ["dotnet", "Auth.API.dll"]
